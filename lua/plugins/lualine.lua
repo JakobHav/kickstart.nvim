@@ -17,7 +17,7 @@ return {
           lualine_c = { 'filename' },
           lualine_x = { 'filetype' },
           lualine_y = { 'location' },
-          lualine_z = { { 'datetime', style = '%H:%M' } },
+          lualine_z = { { 'datetime', style = '%H:%M Uhr' } },
         },
         tabline = {
           lualine_a = { { 'buffers', symbols = { alternate_file = '', directory = true } } },

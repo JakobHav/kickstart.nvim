@@ -37,4 +37,10 @@ return {
       pcall(require('telescope').load_extension, 'ui-select')
     end,
   },
+  {
+    'nvim-telescope/telescope-project.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+  },
 }

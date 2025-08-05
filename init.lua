@@ -16,8 +16,6 @@ rtp:prepend(lazypath)
 
 require('lazy').setup {
 
-  require 'plugins/theme', -- Theme
-
   require 'plugins/noice', -- Noice
 
   require 'plugins/oil', -- Oil
@@ -51,6 +49,10 @@ require('lazy').setup {
   require 'plugins/other', -- various small independent plugins/modules
 
   require 'plugins/treesitter', -- Highlight, edit, and navigate code
+
+  require 'plugins/theme', -- Theme
+
+  require 'plugins/startuppage', -- Startup
 }
 
 -- Vim prefs

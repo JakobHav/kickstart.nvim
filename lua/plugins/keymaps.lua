@@ -2,7 +2,7 @@ local toggle_bool = require 'toggle_bool'
 local builtin = require 'telescope.builtin'
 
 -- Typst
-vim.keymap.set('n', '<leader>p', ':TypstWatch<CR>', { desc = 'Typst [P]review' })
+vim.keymap.set('n', '<leader>p', '<cmd>TypstPreview<CR>', { desc = 'Typst [P]review Toggle' })
 
 -- Git
 vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<CR>', { desc = 'Open Git' })
@@ -11,11 +11,11 @@ vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<CR>', { desc = 'Open Git' })
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open Oil' })
 
 -- Move through buffers
-vim.keymap.set('n', '<Tab>', ':bnext<CR>', { desc = 'Next buffer' })
-vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<Tab>', '<cmd>bnext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<S-Tab>', '<cmd>bprevious<CR>', { desc = 'Previous buffer' })
 
 -- kill current buffer
-vim.keymap.set('n', '<leader>q', ':bd!<CR>', { desc = '[Q]uit Current Buffer' })
+vim.keymap.set('n', '<leader>q', '<cmd>bd!<CR>', { desc = '[Q]uit Current Buffer' })
 
 -- Exit Terminal
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Terminal: Exit to normal mode' })
@@ -32,8 +32,8 @@ vim.keymap.set({ 'i' }, '<C-v>', '<C-r>+', { desc = 'Paste' })
 vim.keymap.set({ 'i' }, '<D-v>', '<C-r>+', { desc = 'Paste' })
 
 -- Window Nav
-vim.keymap.set({ 'n', 'i', 'v' }, '<C-b>', '<cmd>Neotree toggle<CR>', { noremap = true, silent = true })
-vim.keymap.set({ 'n', 'i', 'v' }, '<C-n>', '<cmd>vsplit | terminal<CR>', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'i', 'v' }, '<leader>b', '<cmd>Neotree toggle<CR>', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'i', 'v' }, '<leader>n', '<cmd>vsplit | terminal<CR>', { noremap = true, silent = true })
 
 vim.keymap.set({ 'n', 'i', 'v' }, '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set({ 'n', 'i', 'v' }, '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
@@ -60,16 +60,16 @@ vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]re
 vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>r', builtin.oldfiles, { desc = 'Search [R]ecent Files' })
-vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set({ 'n' }, '<leader>sv', '<cmd>find ~/.config/nvim/init.lua<CR>', { desc = '[Search] [V]IM Config' })
+vim.keymap.set('n', '<leader>sx', builtin.buffers, { desc = '[S]earch e[x]isting buffers' })
+vim.keymap.set('n', '<leader>sv', '<cmd>find ~/.config/nvim/init.lua<CR>', { desc = '[Search] [V]IM Config' })
 
 -- Add Telescope
-vim.keymap.set('n', '<leader>0', function()
+vim.keymap.set('n', '<leader><space>', function()
   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
   })
-end, { desc = '[/] Fuzzily search in current buffer' })
+end, { desc = '[ ] Find' })
 
 vim.keymap.set('n', '<leader>s/', function()
   builtin.live_grep {
@@ -86,13 +86,13 @@ end, { desc = '[S]earch [N]eovim files' })
 -- Comment
 vim.keymap.set('n', '<leader>c', function()
   require('Comment.api').toggle.linewise.current()
-end, { desc = 'Toggle comment (line)' })
+end, { desc = 'Toggle [C]omment' })
 
 vim.keymap.set('v', '<leader>c', function()
   local esc = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
   vim.api.nvim_feedkeys(esc, 'nx', false)
   require('Comment.api').toggle.linewise(vim.fn.visualmode())
-end, { desc = 'Toggle comment (visual)' })
+end, { desc = 'Toggle [C]omment' })
 
 -- Toggle gitsigns
 vim.keymap.set('n', '<leader>tg', function()
@@ -101,4 +101,20 @@ end, { desc = 'Toggle GitSigns' })
 
 -- Other
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('n', '<leader>v', '<cmd>[v]split<CR>')
+vim.keymap.set('n', '<leader>v', '<cmd>vsplit<CR>', { desc = '[V]Split' })
+vim.keymap.set('n', '<leader>m', '<C-w>q', { desc = 'Close[.] [V]Split' })
+
+vim.api.nvim_create_user_command('OpenDrawio', function()
+  vim.fn.jobstart({ 'drawio', vim.fn.expand '%:p' }, { detach = true })
+end, {})
+
+-- Project Management
+vim.api.nvim_set_keymap('n', '<C-p>', "<cmd>lua require'telescope'.extensions.project.project{}<CR>", { noremap = true, silent = true })
+
+-- Copy Path
+vim.keymap.set('n', '<leader><tab>', function()
+  local path = vim.fn.expand '%:p:h'
+  local home = vim.env.HOME
+  local tilde_path = path:gsub('^' .. vim.pesc(home), '~')
+  vim.fn.setreg('+', 'cd ' .. tilde_path)
+end, { desc = 'Copy Path' })

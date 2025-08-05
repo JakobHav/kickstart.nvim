@@ -9,16 +9,12 @@ return {
           comments = { italic = false }, -- Disable italics in comments
         },
       }
-      vim.cmd.colorscheme 'tokyonight-night'
-      opts = {
-        config = function()
-          -- Set thick block characters for vertical and horizontal splits
-          vim.opt.fillchars = vim.opt.fillchars + { vert = '▉', horiz = '━' }
+      vim.opt.fillchars = vim.opt.fillchars + { vert = '│', horiz = '━' }
 
-          -- Highlight VertSplit with a bright color (adjust the hex color as you like)
-          vim.cmd 'highlight VertSplit guibg=NONE guifg=#ffffff'
-        end,
-      }
+      vim.cmd.colorscheme 'tokyonight-night'
+
+      vim.api.nvim_set_hl(0, 'VertSplit', { fg = '#6fc3df', bg = 'NONE' })
+      vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#6fc3df', bg = 'NONE' })
     end,
   },
 }

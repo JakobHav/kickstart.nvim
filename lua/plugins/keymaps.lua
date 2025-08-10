@@ -32,8 +32,8 @@ vim.keymap.set({ 'i' }, '<C-v>', '<C-r>+', { desc = 'Paste' })
 vim.keymap.set({ 'i' }, '<D-v>', '<C-r>+', { desc = 'Paste' })
 
 -- Window Nav
-vim.keymap.set({ 'n', 'i', 'v' }, '<leader>b', '<cmd>Neotree toggle<CR>', { noremap = true, silent = true })
-vim.keymap.set({ 'n', 'i', 'v' }, '<leader>n', '<cmd>vsplit | terminal<CR>', { noremap = true, silent = true })
+-- vim.keymap.set({ 'n', 'i', 'v' }, '<leader>b', '<cmd>Neotree toggle<CR>', { noremap = true, silent = true })
+-- vim.keymap.set({ 'n', 'i', 'v' }, '<leader>n', '<cmd>vsplit | terminal<CR>', { noremap = true, silent = true })
 
 vim.keymap.set({ 'n', 'i', 'v' }, '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set({ 'n', 'i', 'v' }, '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
@@ -52,7 +52,9 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 -- Telescope
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = 'Search Files' })
+vim.keymap.set('n', '<leader><leader>', function()
+  builtin.find_files { cwd = '~/Documents' }
+end, { desc = 'Search Files' })
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [Files' })
 vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
@@ -102,7 +104,7 @@ end, { desc = 'Toggle GitSigns' })
 -- Other
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>v', '<cmd>vsplit<CR>', { desc = '[V]Split' })
-vim.keymap.set('n', '<leader>m', '<C-w>q', { desc = 'Close[.] [V]Split' })
+vim.keymap.set('n', '<leader>m', '<C-w>q', { desc = 'Close Split' })
 
 vim.api.nvim_create_user_command('OpenDrawio', function()
   vim.fn.jobstart({ 'drawio', vim.fn.expand '%:p' }, { detach = true })

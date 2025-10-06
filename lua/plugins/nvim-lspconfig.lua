@@ -182,6 +182,23 @@ return {
           end,
         },
       }
+
+      -- 2. Setup Tinymist LSP config
+      vim.lsp.config['tinymist'] = {
+        cmd = { 'tinymist' },
+        filetypes = { 'typst' },
+        settings = {
+          formatterMode = 'typstyle', -- use typstyle
+        },
+      }
+
+      -- 3. Make “format on save” for Typst files
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = '*.typ', -- or *.typst
+        callback = function()
+          vim.lsp.buf.format { bufnr = 0 }
+        end,
+      })
     end,
   },
 }

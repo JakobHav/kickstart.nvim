@@ -2,10 +2,14 @@ local toggle_bool = require 'toggle_bool'
 local builtin = require 'telescope.builtin'
 
 -- Typst
-vim.keymap.set('n', '<leader>p', '<cmd>TypstPreview<CR>', { desc = 'Typst [P]review Toggle' })
+vim.keymap.set('n', '<leader>p', '<cmd>TypstPreview<CR>', { desc = 'Typst [P]review on' })
+vim.keymap.set('n', '<leader>ts', '<cmd>TypstPreviewStop<CR>', { desc = '[T]ypst [S]top Preview' })
+vim.keymap.set('n', '<leader>tc', '<cmd>make<CR>', { desc = '[T]ypst [C]ompile' })
+
+vim.keymap.set('n', '<leader>P', '<cmd>TypstPreview<CR>', { desc = 'Typst [P]review off' })
 
 -- Git
-vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<CR>', { desc = 'Open Git' })
+vim.keymap.set('n', '<leader>gg', '<cmd>:Neogit cwd=%:p:h<CR>', { desc = '[g]it [g]lobal' })
 
 -- Oil
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open Oil' })
@@ -44,10 +48,10 @@ vim.keymap.set({ 'n', 'i', 'v' }, '<C-enter>', '<C-w><C->><C-w><C->><C-w><C->>',
 vim.keymap.set({ 'n', 'i', 'v' }, '<C-esc>', '<C-w><C-<><C-w><C-<><C-w><C-<>', { desc = 'Decrease Width' })
 
 -- Disable arrows in normal mode
-vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<left>', '<cmd>echo "🟡 Use h to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "🟡 Use l to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "🟡 Use k to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "🟡 Use j to move!!"<CR>')
 
 -- Telescope
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
@@ -96,11 +100,6 @@ vim.keymap.set('v', '<leader>c', function()
   require('Comment.api').toggle.linewise(vim.fn.visualmode())
 end, { desc = 'Toggle [C]omment' })
 
--- Toggle gitsigns
-vim.keymap.set('n', '<leader>tg', function()
-  require('gitsigns').toggle_signs()
-end, { desc = 'Toggle GitSigns' })
-
 -- Other
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>v', '<cmd>vsplit<CR>', { desc = '[V]Split' })
@@ -111,12 +110,24 @@ vim.api.nvim_create_user_command('OpenDrawio', function()
 end, {})
 
 -- Project Management
-vim.api.nvim_set_keymap('n', '<C-p>', "<cmd>lua require'telescope'.extensions.project.project{}<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sp', "<cmd>lua require'telescope'.extensions.project.project{}<CR>", { noremap = true, silent = true })
+
+-- Goto current file's directory
+vim.keymap.set('n', '<leader><tab>', function()
+  local path = vim.fn.expand '%:p:h' -- absolute path to current file's dir
+  if path == '' then
+    print '❌ No current file.'
+    return
+  end
+  vim.fn.chdir(path) -- change working directory
+  print '✅ Changed directory!'
+end, { desc = 'Goto current file path' })
 
 -- Copy Path
-vim.keymap.set('n', '<leader><tab>', function()
+vim.keymap.set('n', '<leader>s<tab>', function()
   local path = vim.fn.expand '%:p:h'
   local home = vim.env.HOME
   local tilde_path = path:gsub('^' .. vim.pesc(home), '~')
   vim.fn.setreg('+', 'cd ' .. tilde_path)
+  print '✅ Copied Path!'
 end, { desc = 'Copy Path' })

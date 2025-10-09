@@ -9,8 +9,7 @@ vim.keymap.set('n', '<leader>tc', '<cmd>make<CR>', { desc = '[T]ypst [C]ompile' 
 vim.keymap.set('n', '<leader>P', '<cmd>TypstPreview<CR>', { desc = 'Typst [P]review off' })
 
 -- Git
-vim.keymap.set('n', '<leader>gg', '<cmd>:Neogit cwd=%:p:h<CR>', { desc = '[g]it [g]lobal' })
-
+vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'Open Lazygit' })
 -- Oil
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open Oil' })
 

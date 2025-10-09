@@ -1,15 +1,12 @@
 return {
   {
-    'NeogitOrg/neogit',
+    'kdheepak/lazygit.nvim',
+    cmd = 'LazyGit',
+    keys = {
+      { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'Open Lazygit' },
+    },
     dependencies = {
-      'nvim-lua/plenary.nvim', -- required
-      'sindrets/diffview.nvim', -- optional - Diff integration
-
-      -- Only one of these is needed.
-      'nvim-telescope/telescope.nvim', -- optional
-      'ibhagwan/fzf-lua', -- optional
-      'nvim-mini/mini.pick', -- optional
-      'folke/snacks.nvim', -- optional
+      'nvim-lua/plenary.nvim',
     },
   },
 }

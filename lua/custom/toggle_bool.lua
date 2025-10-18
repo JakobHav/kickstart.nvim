@@ -1,7 +1,7 @@
 local M = {}
 
 local function toggle_true_false_ignore_case()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
   local line = vim.api.nvim_get_current_line()
 
   local from = math.max(1, col - 5)
@@ -9,8 +9,8 @@ local function toggle_true_false_ignore_case()
   local snippet = line:sub(from, to)
 
   -- Find 'true' or 'false' case-insensitive
-  local s, e, word = snippet:lower():find 'true'
-  local replaced_word, replacement
+  local s, e, _ = snippet:lower():find 'true'
+  local _, replacement
 
   if s then
     -- Preserve original case style

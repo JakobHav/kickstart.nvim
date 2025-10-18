@@ -14,6 +14,7 @@ return {
         dashboard.button('r', '♻️ Recent files', ':Telescope oldfiles<CR>'),
         dashboard.button('n', '📄 New file', ':ene <BAR> startinsert <CR>'),
         dashboard.button('p', '📪 Find project', ":lua require'telescope'.extensions.project.project{}<CR>"),
+        dashboard.button('d', '☀️ Daylog', ':Daylog<CR>'),
         dashboard.button('s', '⚙️ Settings', ':e $MYVIMRC<CR>'),
         dashboard.button('q', '❌ Quit NVIM', ':qa<CR>'),
       }
@@ -42,7 +43,7 @@ return {
         }
       elseif hour < 12 then
         msg = {
-          '☀️ Guten Morgen! ☀️',
+          '    ☀️ Guten Morgen! ☀️',
           'Viel Spaß und trink Mate!',
         }
       elseif hour < 14 then

@@ -201,4 +201,10 @@ return {
       })
     end,
   },
+  vim.diagnostic.config {
+    virtual_text = true, -- show inline errors/warnings
+    signs = true, -- show gutter signs
+    underline = true, -- underline errors
+    update_in_insert = true, -- <--- show errors while in Insert mode
+  },
 }

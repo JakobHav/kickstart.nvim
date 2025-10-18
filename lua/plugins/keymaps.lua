@@ -1,4 +1,5 @@
 local toggle_bool = require 'toggle_bool'
+local daylog = require 'daylog'
 local builtin = require 'telescope.builtin'
 
 -- Typst
@@ -8,8 +9,15 @@ vim.keymap.set('n', '<leader>tc', '<cmd>make<CR>', { desc = '[T]ypst [C]ompile' 
 
 vim.keymap.set('n', '<leader>P', '<cmd>TypstPreview<CR>', { desc = 'Typst [P]review off' })
 
+local function cd_git()
+  local path = vim.fn.expand '%:p:h' -- absolute path to current file's dir
+  if path ~= '' then
+    vim.fn.chdir(path)
+    vim.cmd 'LazyGit'
+  end
+end
 -- Git
-vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'Open Lazygit' })
+vim.keymap.set('n', '<leader>gg', cd_git, { desc = 'Open Lazygit' })
 -- Oil
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open Oil' })
 
@@ -23,20 +31,18 @@ vim.keymap.set('n', '<leader>q', '<cmd>bd!<CR>', { desc = '[Q]uit Current Buffer
 -- Exit Terminal
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Terminal: Exit to normal mode' })
 
--- Toggle Bool
-vim.keymap.set('n', '<C-t>', toggle_bool.tb, { desc = 'Toggle true/false (ignore case)' })
-
 -- Cmd-Z/Redom, Cmd-S, Cmd-V
 vim.keymap.set({ 'n', 'i' }, '<D-z>', 'u', { noremap = true })
 vim.keymap.set({ 'n', 'i' }, '<D-Z>', '<C-r>', { noremap = true })
 
+vim.keymap.set({ 'n', 'i' }, '<esc>z', 'u', { noremap = true })
+
 vim.keymap.set({ 'n', 'i', 'v' }, '<D-s>', '<cmd>w<CR>')
+
 vim.keymap.set({ 'i' }, '<C-v>', '<C-r>+', { desc = 'Paste' })
 vim.keymap.set({ 'i' }, '<D-v>', '<C-r>+', { desc = 'Paste' })
 
 -- Window Nav
--- vim.keymap.set({ 'n', 'i', 'v' }, '<leader>b', '<cmd>Neotree toggle<CR>', { noremap = true, silent = true })
--- vim.keymap.set({ 'n', 'i', 'v' }, '<leader>n', '<cmd>vsplit | terminal<CR>', { noremap = true, silent = true })
 
 vim.keymap.set({ 'n', 'i', 'v' }, '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set({ 'n', 'i', 'v' }, '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
@@ -130,3 +136,35 @@ vim.keymap.set('n', '<leader>s<tab>', function()
   vim.fn.setreg('+', 'cd ' .. tilde_path)
   print '✅ Copied Path!'
 end, { desc = 'Copy Path' })
+
+-- Store the current state in a global variable
+_G.diagnostics_update_in_insert = _G.diagnostics_update_in_insert or false
+
+function ToggleUpdateInInsert()
+  -- Flip the value
+  _G.diagnostics_update_in_insert = not _G.diagnostics_update_in_insert
+
+  -- Reconfigure diagnostics
+  vim.diagnostic.config {
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = _G.diagnostics_update_in_insert,
+  }
+
+  -- Notify the user
+  if _G.diagnostics_update_in_insert then
+    vim.notify 'Diagnostics: update in Insert mode ENABLED'
+  else
+    vim.notify 'Diagnostics: update in Insert mode DISABLED'
+  end
+end
+
+vim.keymap.set('n', '<leader>td', ToggleUpdateInInsert, { desc = '[T]oggle [d]iagnostics update_in_insert' })
+
+-- Toggle Bool
+vim.keymap.set('n', '<C-t>', toggle_bool.tb, { desc = 'Toggle true/false (ignore case)' })
+
+vim.api.nvim_create_user_command('Daylog', function()
+  daylog.open_floating_window()
+end, {})

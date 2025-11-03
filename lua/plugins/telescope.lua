@@ -43,4 +43,13 @@ return {
       'nvim-telescope/telescope.nvim',
     },
   },
+  {
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      -- your configuration comes here
+    },
+    event = 'VeryLazy',
+    keys = {},
+  },
 }

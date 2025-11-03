@@ -9,6 +9,7 @@ vim.keymap.set('n', '<leader>tc', '<cmd>make<CR>', { desc = '[T]ypst [C]ompile' 
 
 vim.keymap.set('n', '<leader>P', '<cmd>TypstPreview<CR>', { desc = 'Typst [P]review off' })
 
+-- Git
 local function cd_git()
   local path = vim.fn.expand '%:p:h' -- absolute path to current file's dir
   if path ~= '' then
@@ -16,8 +17,16 @@ local function cd_git()
     vim.cmd 'LazyGit'
   end
 end
--- Git
-vim.keymap.set('n', '<leader>gg', cd_git, { desc = 'Open Lazygit' })
+vim.keymap.set('n', '<leader>g', cd_git, { desc = 'Git' })
+
+-- LSP
+
+vim.keymap.set('n', '<leader>d', 'grD', { desc = '[D]efinition' })
+
+-- Gitsigns
+
+vim.keymap.set('n', '<leader>tg', '<cmd>Gitsigns toggle_signs<CR>', { desc = '[T]oggle [G]itsigns' })
+
 -- Oil
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open Oil' })
 
@@ -73,6 +82,24 @@ vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' }
 vim.keymap.set('n', '<leader>r', builtin.oldfiles, { desc = 'Search [R]ecent Files' })
 vim.keymap.set('n', '<leader>sx', builtin.buffers, { desc = '[S]earch e[x]isting buffers' })
 vim.keymap.set('n', '<leader>sv', '<cmd>find ~/.config/nvim/init.lua<CR>', { desc = '[Search] [V]IM Config' })
+
+require('todo-comments').setup {
+  search = {
+    command = 'rg',
+    args = {
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--max-depth=5',
+    },
+    pattern = [[\b(KEYWORDS):]],
+  },
+}
+
+vim.keymap.set('n', '<leader>sT', '<cmd>TodoTelescope cwd=~/Documents/<cr>', { desc = '[S]earch [T]ODOS' })
+vim.keymap.set('n', '<leader>st', '<cmd>TodoTelescope cwd=~/Documents/ keywords=TODO,FIX<cr>', { desc = '[S]earch [T]ODO/FIX' })
 
 -- Add Telescope
 vim.keymap.set('n', '<leader><space>', function()

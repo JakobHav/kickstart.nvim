@@ -4,14 +4,14 @@ return {
     event = 'VimEnter',
     version = '1.*',
     dependencies = {
-      'rafamadriz/friendly-snippets',
+      -- 'rafamadriz/friendly-snippets',
       'folke/lazydev.nvim',
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
     opts = {
       keymap = {
-        preset = 'enter',
+        preset = 'super-tab',
       },
       completion = {
         documentation = { auto_show = false, auto_show_delay_ms = 500 },

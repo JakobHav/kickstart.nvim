@@ -53,6 +53,8 @@ require('lazy').setup {
   require 'plugins/theme', -- Theme
 
   require 'plugins/startuppage', -- Startup
+
+  require 'plugins/multiline', -- multiline cursur
 }
 
 -- Vim prefs

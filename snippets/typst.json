@@ -1,149 +1,178 @@
 {
-	"invoice-malibu": {
-		"prefix": "invoice-malibu",
-		"body": [
-			"#import \"@local/invoice-sound:0.1.0\": conf",
-			"#show: doc => conf(",
-			"  doc,",
-			"  empfänger: text[",
-			"    Fly with me to Malibu\\",
-			"    co. Jürgen Wieching \\",
-			"    Hügelstraße 67 \\",
-			"    49088 Osnabrück",
-			"  ],",
-			"  datum: \"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR}\",",
-			"  jobs: (",
-			"    (\"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR} Tontechnik \\\"Fly with me to Malibu\\\",  \", 250.00),",
-			"  ),",
-			")",
-			"Sehr geehrter Herr Wieching,",
-			"",
-			"für die von Ihnen beauftragten tontechnischen Dienstleistungen im Rahmen eines Auftritts der Band \\\"Fly with me to Malibu\\\" stelle ich vereinbarungsgemäß folgene Beiträge in Rechnung:",
-			""
-		],
-		"description": "Insert Invoice header"
-	},
-	"invoice": {
-		"prefix": "invoice",
-		"body": [
-			"#import \"@local/invoice-sound:0.1.0\": conf",
-			"#show: doc => conf(",
-			"  doc,",
-			"  empfänger: text[",
-			"    ${1:name} \\",
-			"    ${2:straße} \\",
-			"    ${3:ort}",
-			"  ],",
-			"  datum: \"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR}\",",
-			"  jobs: (",
-			"    (\"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR} Tontechnik \\\"\\\",  \", ${0:250}.00),",
-			"  ),",
-			")",
-			"Sehr geehrter Herr ${1:name},",
-			"",
-			"für die von Ihnen beauftragten tontechnischen Dienstleistungen im Rahmen eines Auftritts der Band \\\"\\\" im stelle ich vereinbarungsgemäß folgene Beiträge in Rechnung:",
-			""
-		],
-		"description": "Insert Invoice header"
-	},
-	"Sheet Header": {
-		"prefix": "sheet",
-		"body": [
-			"/*",
-			"  Copyright 2025, Universität Freiburg",
-			"",
-			"  author: Jakob Haverkamp <jh1444@email.uni-freiburg.de>",
-			"",
-			"  Template for simple worksheet",
-			"*/",
-			"",
-			"#import \"@local/ufr-sheet:0.1.0\": conf",
-			"",
-			"#show: doc => conf(",
-			"  doc,",
-			"  subject: \"${1:subject}\",",
-			"  date: \"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR}\",",
-			"  prof: \"\",",
-			"  semester: \"WS 25/26\",",
-			"  title: \"${0:title}\",",
-			")",
-			"",
-			"= Aufgabe 1",
-			""
-		],
-		"description": "Insert Sheet header"
-	},
-	"Modern Sheet Header": {
-		"prefix": "modern-sheet",
-		"body": [
-			"/*",
-			"  Copyright 2025, Universität Freiburg",
-			"",
-			"  author: Jakob Haverkamp <jh1444@email.uni-freiburg.de>",
-			"",
-			"  Template for simple worksheet",
-			"*/",
-			"",
-			"#import \"@local/ufr-sheet-modern:0.1.0\": conf",
-			"",
-			"#show: doc => conf(",
-			"  doc,",
-			"  subject: \"Embedded\",",
-			"  date: \"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR}\",",
-			"  title: \"Blatt 00\",",
-			")",
-			"",
-			"= Aufgabe 1",
-			""
-		],
-		"description": "Insert Sheet header"
-	},
-	"Typst Table": {
-		"prefix": "typsttable",
-		"body": [
-			"#table(",
-			"  columns: 4,",
-			"  inset: 5pt,",
-			"  align: horizon,",
-			"  table.header([], [], [], []),",
-			"  [], [], [], [],",
-			")"
-		]
-	},
-	"Typst 2 Split": {
-		"prefix": "typst3",
-		"body": [
-			"#let left = 50%",
-			"#table(",
-			"  columns: (left, 100% - left),",
-			"  stroke: 0pt,",
-			"  [",
-			"",
-			"  ],",
-			"  [",
-			"",
-			"  ]",
-			")"
-		]
-	},
-	"Typst 3 Split": {
-		"prefix": "typst2",
-		"body": [
-			"#let left = 33.3%",
-			"#let right = 33.3%",
-			"#table(",
-			"  columns: (left, 100% - left - right, right),",
-			"  stroke: 0pt,",
-			"  [",
-			"",
-			"  ],",
-			"  [",
-			"",
-			"  ],",
-			"  [",
-			"",
-			"  ]",
-			")"
-		]
-	}
+  "invoice-malibu": {
+    "prefix": "invoice-malibu",
+    "body": [
+      "#import \"@local/invoice-sound:0.1.0\": conf",
+      "#show: doc => conf(",
+      "  doc,",
+      "  empfänger: text[",
+      "    Fly with me to Malibu\\",
+      "    co. Jürgen Wieching \\",
+      "    Hügelstraße 67 \\",
+      "    49088 Osnabrück",
+      "  ],",
+      "  datum: \"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR}\",",
+      "  jobs: (",
+      "    (\"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR} Tontechnik \\\"Fly with me to Malibu\\\",  \", 250.00),",
+      "  ),",
+      ")",
+      "Sehr geehrter Herr Wieching,",
+      "",
+      "für die von Ihnen beauftragten tontechnischen Dienstleistungen im Rahmen eines Auftritts der Band \\\"Fly with me to Malibu\\\" stelle ich vereinbarungsgemäß folgene Beiträge in Rechnung:",
+      ""
+    ],
+    "description": "Insert Invoice header"
+  },
+  "invoice": {
+    "prefix": "invoice",
+    "body": [
+      "#import \"@local/invoice-sound:0.1.0\": conf",
+      "#show: doc => conf(",
+      "  doc,",
+      "  empfänger: text[",
+      "    ${1:name} \\",
+      "    ${2:straße} \\",
+      "    ${3:ort}",
+      "  ],",
+      "  datum: \"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR}\",",
+      "  jobs: (",
+      "    (\"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR} Tontechnik \\\"\\\",  \", ${0:250}.00),",
+      "  ),",
+      ")",
+      "Sehr geehrter Herr ${1:name},",
+      "",
+      "für die von Ihnen beauftragten tontechnischen Dienstleistungen im Rahmen eines Auftritts der Band \\\"\\\" im stelle ich vereinbarungsgemäß folgene Beiträge in Rechnung:",
+      ""
+    ],
+    "description": "Insert Invoice header"
+  },
+  "Op Sytems Sheet Header": {
+    "prefix": "ossheet",
+    "body": [
+      "/*",
+      "  Copyright 2025, Universität Freiburg",
+      "",
+      "  author: Jakob Haverkamp <jh1444@email.uni-freiburg.de>",
+      "",
+      "  Template for simple worksheet",
+      "*/",
+      "",
+      "#import \"@local/ufr-sheet-universal:0.1.0\": conf",
+      "",
+      "#show: doc => conf(",
+      "  doc,",
+      "  subject: \"Betriebssysteme\",",
+      "  date: \"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR}\",",
+      "  prof: \"Dr. Tim Welschehold, Dr. Tobias Seufert\",",
+      "  semester: \"WS 25/26\",",
+      "  title: \"Übungsblatt \",",
+      "  name: \"jh1444, nr254\",",
+      " left_header: [Jakob Haverkamp \\ Eden Nyla Rafiq \\ jh1444, #h(5pt)nr254],",
+      ")",
+      "",
+      "= Aufgabe 1",
+      ""
+    ],
+    "description": "Insert Sheet header"
+  },
+  "Sheet Header": {
+    "prefix": "sheet",
+    "body": [
+      "/*",
+      "  Copyright 2025, Universität Freiburg",
+      "",
+      "  author: Jakob Haverkamp <jh1444@email.uni-freiburg.de>",
+      "",
+      "  Template for simple worksheet",
+      "*/",
+      "",
+      "#import \"@local/ufr-sheet:0.1.0\": conf",
+      "",
+      "#show: doc => conf(",
+      "  doc,",
+      "  subject: \"${1:subject}\",",
+      "  date: \"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR}\",",
+      "  prof: \"\",",
+      "  semester: \"WS 25/26\",",
+      "  title: \"${0:title}\",",
+      ")",
+      "",
+      "= Aufgabe 1",
+      ""
+    ],
+    "description": "Insert Sheet header"
+  },
+  "Modern Sheet Header": {
+    "prefix": "modern-sheet",
+    "body": [
+      "/*",
+      "  Copyright 2025, Universität Freiburg",
+      "",
+      "  author: Jakob Haverkamp <jh1444@email.uni-freiburg.de>",
+      "",
+      "  Template for simple worksheet",
+      "*/",
+      "",
+      "#import \"@local/ufr-sheet-modern:0.1.0\": conf",
+      "",
+      "#show: doc => conf(",
+      "  doc,",
+      "  subject: \"Embedded\",",
+      "  date: \"${CURRENT_DATE}.${CURRENT_MONTH}.${CURRENT_YEAR}\",",
+      "  title: \"Blatt 00\",",
+      ")",
+      "",
+      "= Aufgabe 1",
+      ""
+    ],
+    "description": "Insert Sheet header"
+  },
+  "Typst Table": {
+    "prefix": "typsttable",
+    "body": [
+      "#table(",
+      "  columns: 4,",
+      "  inset: 5pt,",
+      "  align: horizon,",
+      "  table.header([], [], [], []),",
+      "  [], [], [], [],",
+      ")"
+    ]
+  },
+  "Typst 2 Split": {
+    "prefix": "typst3",
+    "body": [
+      "#let left = 50%",
+      "#table(",
+      "  columns: (left, 100% - left),",
+      "  stroke: 0pt,",
+      "  [",
+      "",
+      "  ],",
+      "  [",
+      "",
+      "  ]",
+      ")"
+    ]
+  },
+  "Typst 3 Split": {
+    "prefix": "typst2",
+    "body": [
+      "#let left = 33.3%",
+      "#let right = 33.3%",
+      "#table(",
+      "  columns: (left, 100% - left - right, right),",
+      "  stroke: 0pt,",
+      "  [",
+      "",
+      "  ],",
+      "  [",
+      "",
+      "  ],",
+      "  [",
+      "",
+      "  ]",
+      ")"
+    ]
+  }
 }

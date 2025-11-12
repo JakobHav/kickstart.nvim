@@ -13,7 +13,22 @@ return {
         },
         sections = {
           lualine_a = { 'mode' },
-          lualine_b = { 'branch' },
+          lualine_b = {
+            {
+              function()
+                local gitsigns_dict = vim.b.gitsigns_status_dict
+                if gitsigns_dict and gitsigns_dict.head then
+                  local branch_name = gitsigns_dict.head
+                  if branch_name == 'master' then
+                    branch_name = 'm'
+                  end
+                  return '' .. branch_name .. ' in ' .. vim.fn.fnamemodify(gitsigns_dict.root, ':t') .. ' '
+                end
+                return ''
+              end,
+              icon = '',
+            },
+          },
           lualine_c = { 'filename' },
           lualine_x = { 'filetype' },
           lualine_y = { 'location' },

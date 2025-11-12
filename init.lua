@@ -40,9 +40,43 @@ require('lazy').setup {
 
   require 'plugins/lazydev', -- LSP Plugins
 
-  require 'plugins/nvim-lspconfig', -- LSP Config
-
-  require 'plugins/conform', -- Autoformat
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
+    keys = {
+      {
+        '<leader>f',
+        function()
+          require('conform').format { async = true, lsp_format = 'fallback' }
+        end,
+        mode = '',
+        desc = '[F]ormat buffer',
+      },
+    },
+    opts = {
+      notify_on_error = true,
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = 'fallback',
+      },
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        python = { 'ruff', 'autopep8' },
+        rust = { 'rustfmt' },
+        cpp = { 'clang-format' },
+        c = { 'clang-format' },
+        java = { 'clang-format' },
+        html = { 'prettier' },
+        typescript = { 'prettier' },
+        javascript = { 'prettier' },
+        json = { 'prettier' },
+        css = { 'prettier' },
+        markdown = { 'marksman' },
+      },
+    },
+  },
+  require 'plugins/nvim-lspconfig', -- LSP Config + Conform (Format)
 
   require 'plugins/blink', -- Autocompletion
 
@@ -55,6 +89,8 @@ require('lazy').setup {
   require 'plugins/startuppage', -- Startup
 
   require 'plugins/multiline', -- multiline cursur
+
+  require 'plugins/markdown', -- MD Preview
 }
 
 -- Vim prefs

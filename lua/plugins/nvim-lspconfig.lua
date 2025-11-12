@@ -207,4 +207,5 @@ return {
     underline = true, -- underline errors
     update_in_insert = true, -- <--- show errors while in Insert mode
   },
+
 }

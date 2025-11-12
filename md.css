@@ -1,0 +1,5 @@
+/* Only affect math blocks */
+.katex,
+.math {
+  font-size: 0.75em !important;
+}

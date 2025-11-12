@@ -7,7 +7,7 @@ vim.keymap.set('n', '<leader>p', '<cmd>TypstPreview<CR>', { desc = 'Typst [P]rev
 vim.keymap.set('n', '<leader>ts', '<cmd>TypstPreviewStop<CR>', { desc = '[T]ypst [S]top Preview' })
 vim.keymap.set('n', '<leader>tc', '<cmd>make<CR>', { desc = '[T]ypst [C]ompile' })
 
-vim.keymap.set('n', '<leader>P', '<cmd>TypstPreview<CR>', { desc = 'Typst [P]review off' })
+vim.keymap.set('n', '<leader>tm', '<cmd>MarkdownPreviewToggle<CR>', { desc = '[T]oggle Markdown [P]review' })
 
 -- Git
 local function cd_git()
@@ -41,7 +41,8 @@ vim.keymap.set('n', '<leader>q', '<cmd>bd!<CR>', { desc = '[Q]uit Current Buffer
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Terminal: Exit to normal mode' })
 
 -- Cmd-Z/Redom, Cmd-S, Cmd-V
-vim.keymap.set({ 'n', 'i' }, '<D-z>', 'u', { noremap = true })
+vim.keymap.set({ 'n' }, '<D-z>', 'u', { noremap = true })
+vim.keymap.set({ 'i' }, '<D-z>', '<C-Z>', { noremap = true })
 vim.keymap.set({ 'n', 'i' }, '<D-Z>', '<C-r>', { noremap = true })
 
 vim.keymap.set({ 'n', 'i' }, '<esc>z', 'u', { noremap = true })
